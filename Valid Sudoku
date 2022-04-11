@@ -1,0 +1,83 @@
+//NOT MINE, SAME ALGO THOUGH
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        
+        vector<vector<char>> subBoxes;
+        vector<char> b1, b2, b3;
+        for (int i = 0; i < board.size(); ++i)
+        {
+            b1.push_back(board[i][0]);
+            b1.push_back(board[i][1]);
+            b1.push_back(board[i][2]);
+            
+            b2.push_back(board[i][3]);
+            b2.push_back(board[i][4]);
+            b2.push_back(board[i][5]);
+            
+            b3.push_back(board[i][6]);
+            b3.push_back(board[i][7]);
+            b3.push_back(board[i][8]);
+            
+            if (i == 2 || i == 5 || i == 8)
+            {
+                subBoxes.push_back(b1);
+                subBoxes.push_back(b2);
+                subBoxes.push_back(b3);
+                b1.clear();
+                b2.clear();
+                b3.clear();
+            }
+        }
+        
+    
+        map<char, int> rowFreq, colFreq;
+        for (int i = 0; i < board.size(); ++i)
+        {
+            for (int j = 0; j < board[i].size(); ++j)
+            {
+                rowFreq[board[i][j]]++;
+                colFreq[board[j][i]]++;
+            }
+            
+            for (auto p : rowFreq)
+            {
+                
+                if (p.first != '.' && (p.first - '0' < 1 || p.first - '0' > 9 || p.second != 1))
+                {
+                    return false;
+                }
+            }
+            for (auto p : colFreq)
+            {
+                
+                if (p.first != '.' && (p.first - '0' < 1 || p.first - '0' > 9 || p.second != 1))
+                {
+                    return false;
+                }
+            }
+            rowFreq.clear();
+            colFreq.clear();
+        }
+        
+        map<char, int> subBoxFreq;
+        for (int i = 0; i < subBoxes.size(); ++i)
+        {
+            for (int j = 0; j < subBoxes[i].size(); ++j)
+            {
+                subBoxFreq[subBoxes[i][j]]++;
+            }
+            for (auto p : subBoxFreq)
+            {
+                
+                if (p.first != '.' && (p.first - '0' < 1 || p.first - '0' > 9 || p.second != 1))
+                {
+                    return false;
+                }
+            }
+            
+            subBoxFreq.clear();
+        }
+        return true;
+    }
+};
