@@ -1,0 +1,11 @@
+class Solution:
+    def firstUniqChar(self, s: str) -> int:
+        d=collections.Counter(s)
+        c='.'
+        for x in d:
+            if d[x]==1:
+                c=x
+                break
+        y=s.find(c)
+        return y
+        
