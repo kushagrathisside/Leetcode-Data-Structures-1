@@ -1,0 +1,45 @@
+class MyQueue {
+public:
+
+    stack<int> s1;
+    stack<int> s2;
+MyQueue() {
+    //stack<int> s1;
+    //stack<int> s2;
+}
+
+void push(int x) {
+    if(s1.empty())//only 1 element so there will be no difference in case of queue and stack
+    {
+        s1.push(x);
+    }
+    else
+    {
+        while(!s1.empty())//send all from s1 to s2 so that s1 can have pushed element and others can be pushed from s2 on it.
+        {
+            s2.push(s1.top());
+            s1.pop();
+        }
+        s1.push(x);//insertion of the element to be pushed
+        while(!s2.empty()) //elements from s2 pushed to s1, now s1 turns FIFO
+        {
+            s1.push(s2.top());
+            s2.pop();
+        }
+    }
+}
+
+int pop() { //basic pop operation
+    int x= s1.top();
+    s1.pop();
+    return x;
+}
+
+int peek() { //element at top of s1
+    return s1.top();
+}
+
+bool empty() { //s1 was made to act like queue so s1 (queue) is checked if its empty of not
+    return s1.empty();
+}
+};
