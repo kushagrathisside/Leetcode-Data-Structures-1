@@ -1,0 +1,15 @@
+class Solution {
+public:
+void preorder(TreeNode root, vector &traversal)
+{
+if(root==NULL) return;
+traversal.push_back(root->val);
+preorder(root->left,traversal);
+preorder(root->right,traversal);
+}
+vector preorderTraversal(TreeNode* root) {
+vector traversal;
+preorder(root,traversal);
+return traversal;
+}
+};
